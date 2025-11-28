@@ -30,7 +30,7 @@
             font-family: 'Outfit', sans-serif;
             background: var(--surface);
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
@@ -98,6 +98,7 @@
             align-items: center;
             justify-content: center;
             padding: 40px;
+            padding-bottom: 100px; /* Extra padding for footer */
         }
 
         /* Header */
@@ -126,9 +127,7 @@
             text-transform: uppercase;
         }
 
-        /* ==================== */
-        /* SCREEN 1: START SCREEN */
-        /* ==================== */
+        /* SCREENS */
         .screen {
             display: none;
             width: 100%;
@@ -140,6 +139,7 @@
             display: block;
         }
 
+        /* START SCREEN */
         .start-card {
             background: var(--white);
             border-radius: 40px;
@@ -206,13 +206,7 @@
             animation: none;
         }
 
-        .lucky-btn:active {
-            transform: scale(1.02);
-        }
-
-        /* ==================== */
-        /* SCREEN 2: QR CODE SCREEN */
-        /* ==================== */
+        /* QR SCREEN */
         .qr-card {
             background: var(--white);
             border-radius: 40px;
@@ -264,6 +258,8 @@
             background: var(--surface);
             border-radius: 24px;
             margin-bottom: 30px;
+            min-width: 340px;
+            min-height: 340px;
         }
 
         .qr-container::before {
@@ -282,15 +278,16 @@
             50% { opacity: 0.8; }
         }
 
+        /* QR Image Styles - CRITICAL FIX */
         .qr-image {
-            display: block;
-            width: 300px;
-            height: 300px;
+            width: 280px;
+            height: 280px;
             border-radius: 12px;
+            display: block;
         }
 
         .qr-image.hidden {
-            display: none;
+            display: none !important;
         }
 
         /* Scan Indicator */
@@ -336,9 +333,7 @@
             color: var(--primary);
         }
 
-        /* ==================== */
-        /* SCREEN 3: WINNER SCREEN */
-        /* ==================== */
+        /* WINNER SCREEN */
         .winner-card {
             background: var(--white);
             border-radius: 40px;
@@ -455,26 +450,22 @@
         }
 
         @keyframes confettiFall {
-            0% {
-                opacity: 1;
-                transform: translateY(0) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(100vh) rotate(720deg);
-            }
+            0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
         }
 
-        /* Footer */
+        /* Footer - FIXED PADDING */
         .footer {
             position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 0;
+            left: 0;
+            right: 0;
             text-align: center;
             color: var(--text-muted);
             font-size: 0.9rem;
             z-index: 1;
+            padding: 20px 40px;
+            background: linear-gradient(to top, var(--surface) 0%, transparent 100%);
         }
 
         .footer span {
@@ -492,7 +483,7 @@
         /* Test Mode Panel */
         .test-panel {
             position: fixed;
-            bottom: 70px;
+            bottom: 80px;
             right: 20px;
             background: var(--white);
             border-radius: 16px;
@@ -538,7 +529,7 @@
 
         .test-toggle {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             right: 20px;
             padding: 10px 20px;
             font-family: 'Outfit', sans-serif;
@@ -557,7 +548,6 @@
             color: var(--primary);
         }
 
-        /* Current Prize Debug */
         .current-prize-debug {
             margin-top: 15px;
             padding-top: 15px;
@@ -574,7 +564,8 @@
         @media (max-width: 768px) {
             .logo { font-size: 2.8rem; }
             .start-card, .qr-card, .winner-card { padding: 40px 30px; }
-            .qr-image { width: 250px; height: 250px; }
+            .qr-image { width: 220px; height: 220px; }
+            .qr-container { min-width: 280px; min-height: 280px; }
             .prize-name { font-size: 2.2rem; }
             .lucky-btn { padding: 20px 40px; font-size: 1.2rem; }
         }
@@ -616,22 +607,21 @@
                 <h2 class="qr-title">🎯 Scan Your Prize!</h2>
                 <p class="qr-subtitle">Use the scanner to reveal what you've won</p>
                 
-                <div class="qr-container">
-                    <!-- Pre-embedded QR codes - These encode the prize code strings -->
+                <div class="qr-container" id="qrContainer">
                     <!-- LUMICARE_PEN -->
-                    <img id="qr-pen" class="qr-image hidden" 
+                    <img id="qr-pen" class="qr-image hidden"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAAEiCAIAAADS3EjhAAAFHElEQVR4nO3dMXLUQBBAUUw5427cgxNxD+5GLNKNpgzDrx7J7+W7K8v7a4Ltar1d1/UFKH2dvgB4PplBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpB733nxt+8//td1HOL3r5///Nqdu7H+3O6dO74br5xmkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpDbmgJZm5o/WNuZTjhzzmNt/c5T/6PnfTfWnGaQkxnkZAY5mUFOZpCTGeRkBjmZQU5mkAunQNa6X9yfN2HQbSg5c8vI874bTjPIyQxyMoOczCAnM8jJDHIyg5zMICczyI1NgfCqm06Y2kHCK6cZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGeRMgfw33bxF91SXM/emPI/TDHIyg5zMICczyMkMcjKDnMwgJzPIyQxyY1Mg5g9edTs5znzmy5mf23GaQU5mkJMZ5GQGOZlBTmaQkxnkZAY5mUEunALxtJGPm3puy87n7sxqfLbvhtMMcjKDnMwgJzPIyQxyMoOczCAnM8jJDHJv13VNXwNb8xbdto9uCuSzcZpBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQW5sCsSeiVdnznnsmPrcHd1ci9MMcjKDnMwgJzPIyQxyMoOczCAnM8jJDHJbUyCf7bf8tam7cebf220Z6WZiOk4zyMkMcjKDnMwgJzPIyQxyMoOczCAnM8i9d2/d/eK+ngOY2m/RmbqT3UaWnXfuZkS6a3aaQU5mkJMZ5GQGOZlBTmaQkxnkZAY5mUEunAJ53r6Hqb+om07YceZTe7odJDucZpCTGeRkBjmZQU5mkJMZ5GQGOZlBTmaQ25oC6eYedj53bWcOYGqDxZmTDWt3nJixCwRuTGaQkxnkZAY5mUFOZpCTGeRkBjmZQe7tuq7orc+cAlk7cwfJ2plTIGtTT6JZswsEbkxmkJMZ5GQGOZlBTmaQkxnkZAY5mUFuaxfI1C/uZz5PZEf3zjufO7Vzpbsqu0DgsWQGOZlBTmaQkxnkZAY5mUFOZpCTGeTCXSBrU3MPU3Mea91VTe1N+WxPwFlzmkFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlBbmsKZGpmYm1q/mDtzKmIM/+DnakZEacZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGeS2nghz5t6Fte6az7wbd9y6ccdtH2tOM8jJDHIyg5zMICczyMkMcjKDnMwgJzPIbU2BPG+TxM6EwZl3Y2oXyB0nObprdppBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQW5rCmTtjr/0TznzXu2446aQ7pqdZpCTGeRkBjmZQU5mkJMZ5GQGOZlBTmaQC6dA1rppjDOf+bLz907dq/XnnjlPc+YOEqcZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGeTGpkCe58z5g6mret52kx1OM8jJDHIyg5zMICczyMkMcjKDnMwgJzPImQL5C1P7PHY2duzoNoXsvPOZd2PNaQY5mUFOZpCTGeRkBjmZQU5mkJMZ5GQGubEpkDvuiujmD+54N6acuXNlzWkGOZlBTmaQkxnkZAY5mUFOZpCTGeRkBrm367r++cXd3oUp3QzBmTsqztwj0r1z99o1pxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5LamQICPcJpBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGeT+ACIBg8gplLJ6AAAAAElFTkSuQmCC"
                          alt="Lumicare Pen QR Code"
                          data-prize="LUMICARE_PEN">
                     
                     <!-- LUMICARE_BOTTLE_OPENER -->
-                    <img id="qr-bottle-opener" class="qr-image hidden" 
-                         src="data:image/png;base64,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"
+                    <img id="qr-bottle-opener" class="qr-image hidden"
+                         src="data:image/png;base64,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"
                          alt="Lumicare Bottle Opener QR Code"
                          data-prize="LUMICARE_BOTTLE_OPENER">
                     
                     <!-- LUMICARE_DRINK_BOTTLE -->
-                    <img id="qr-drink-bottle" class="qr-image hidden" 
+                    <img id="qr-drink-bottle" class="qr-image hidden"
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAAFKCAIAAAD0S4FSAAAGO0lEQVR4nO3dQW5sNRBAUYIQK2EhLJ2FsBImjykDZCn4m/K7fc40SvdLp688KZW/nuf5CSj6efoBgFPkDVnyhix5Q5a8IUvekCVvyJI3ZMkbsuQNWfKGLHlDlrwhS96QJW/IkjdkyRuy5A1Z8oasX3Z++dc//vxRz3GJv37/bfHTc3/v+n3vtP40zn2SU/+jKTvfDac3ZMkbsuQNWfKGLHlDlrwhS96QJW/IkjdkbU2trd05iTU1L7XzaUy98o6pmba13ndyzekNWfKGLHlDlrwhS96QJW/IkjdkyRuy5A1ZB6fW1t44mXTn9NjOU52bwzs3HXjOG7+Ta05vyJI3ZMkbsuQNWfKGLHlDlrwhS96QJW/IGptae6PevrRzT3XnVrNP4/SGLHlDlrwhS96QJW/IkjdkyRuy5A1Z8oYsU2vf8MbbRXdM7R6789N4I6c3ZMkbsuQNWfKGLHlDlrwhS96QJW/IkjdkjU2tvXH2aGrX2p03dfb2tL3xO7nm9IYseUOWvCFL3pAlb8iSN2TJG7LkDVnyhqyDU2vnNnVN6e0Am5qWm5qH630n15zekCVvyJI3ZMkbsuQNWfKGLHlDlrwhS96Q9fU8z/QzvMbUzNOdm9h2uCH0/+H0hix5Q5a8IUvekCVvyJI3ZMkbsuQNWfKGrLEbQs85dyfm1LzUnbNld77vG/fDnZvSc3pDlrwhS96QJW/IkjdkyRuy5A1Z8oYseUPW1q613pTPp235euM83Kc9s6k14F/IG7LkDVnyhix5Q5a8IUvekCVvyJI3ZB28IfTcdNHUrZfn3rd3j+fU+945Dzc17+j0hix5Q5a8IUvekCVvyJI3ZMkbsuQNWfKGrK0bQu+cHzo3IXRuP9yOO+e0dpx7qjv/C+c4vSFL3pAlb8iSN2TJG7LkDVnyhix5Q5a8IevgrrW1Oyfe1qYmk+7ctXbOG6cD77xb1ukNWfKGLHlDlrwhS96QJW/IkjdkyRuy5A1ZW7vW1u7c47UzezQ1aTe1Pe5OUzNtd86lrTm9IUvekCVvyJI3ZMkbsuQNWfKGLHlDlrwh6+DU2tq5KZ9zc0t3vvLOJzn1F+144zdnitMbsuQNWfKGLHlDlrwhS96QJW/IkjdkyRuytm4InZpqeuPk2dqd96X23vfO20XPcXpDlrwhS96QJW/IkjdkyRuy5A1Z8oYseUPW1q61N+6muvN+yR133i5653zYndvjzv0Hnd6QJW/IkjdkyRuy5A1Z8oYseUOWvCFL3pC1NbU2NYm1Y+ouzrU7n2rqZtI7nZt4O/dpOL0hS96QJW/IkjdkyRuy5A1Z8oYseUOWvCFra2ptys6M17kNYTuTSVN76c5tjzv3Sd65L22HXWvAt8kbsuQNWfKGLHlDlrwhS96QJW/IkjdkfT3P859/+Y13RK71pqmmnqo30zb1F+1wekOWvCFL3pAlb8iSN2TJG7LkDVnyhix5Q9bH7VrbeeUpUzvezr3vjql7ad94I6rTG7LkDVnyhix5Q5a8IUvekCVvyJI3ZMkbsrZ2rX2aqXs8z5naEHbnZOEb99KtOb0hS96QJW/IkjdkyRuy5A1Z8oYseUOWvCFra9fap01x9Xa87Tzz1F2ca1N3ce5wQyjwbfKGLHlDlrwhS96QJW/IkjdkyRuy5A1ZB28IvXNCaGoiyr2W/3Tu03jjt87UGvBt8oYseUOWvCFL3pAlb8iSN2TJG7LkDVkHp9bW3ji39MYNYW985Z33nXLnUzm9IUvekCVvyJI3ZMkbsuQNWfKGLHlDlrwha2xqrefOmbb17+688tR9qW+cw5uaaXN6Q5a8IUvekCVvyJI3ZMkbsuQNWfKGLHlDlqm1H2ZqMunOWaup+1LXpu5pneL0hix5Q5a8IUvekCVvyJI3ZMkbsuQNWfKGrLGptXM3SE6Z2vK1s01tbWqL250TYG/cHuf0hix5Q5a8IUvekCVvyJI3ZMkbsuQNWfKGrINTa3fOHp1zbvZox9Q9nmtTM213zkqeeyqnN2TJG7LkDVnyhix5Q5a8IUvekCVvyJI3ZH09zzP9DMARTm/IkjdkyRuy5A1Z8oYseUOWvCFL3pAlb8iSN2TJG7LkDVnyhix5Q5a8IUvekCVvyJI3ZMkbsv4G619F/wCj5hUAAAAASUVORK5CYII="
                          alt="Lumicare Drink Bottle QR Code"
                          data-prize="LUMICARE_DRINK_BOTTLE">
@@ -677,8 +667,7 @@
     </div>
 
     <script>
-        // Prize definitions with their QR code values
-        // The QR codes encode these exact strings - the USB scanner will "type" them
+        // Prize definitions
         const prizes = {
             'LUMICARE_PEN': {
                 name: 'Lumicare Pen',
@@ -707,7 +696,7 @@
 
         // Screen management
         function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
+            document.querySelectorAll('.screen').forEach(function(screen) {
                 screen.classList.remove('active');
             });
             document.getElementById(screenId).classList.add('active');
@@ -719,28 +708,40 @@
             hideAllQRCodes();
             currentPrizeKey = null;
             updateDebug();
-            
-            // Clear confetti
             document.getElementById('confettiContainer').innerHTML = '';
         }
 
         // Hide all QR codes
         function hideAllQRCodes() {
-            document.querySelectorAll('.qr-image').forEach(img => {
-                img.classList.add('hidden');
-            });
+            var images = document.querySelectorAll('.qr-image');
+            for (var i = 0; i < images.length; i++) {
+                images[i].classList.add('hidden');
+            }
         }
 
         // Show QR screen with random prize
         function showQRScreen() {
             // Select random prize
-            const randomIndex = Math.floor(Math.random() * prizeKeys.length);
+            var randomIndex = Math.floor(Math.random() * prizeKeys.length);
             currentPrizeKey = prizeKeys[randomIndex];
             
-            // Show the corresponding QR code
+            // Hide all QR codes first
             hideAllQRCodes();
-            const prize = prizes[currentPrizeKey];
-            document.getElementById(prize.elementId).classList.remove('hidden');
+            
+            // Get the prize and show its QR code
+            var prize = prizes[currentPrizeKey];
+            var qrElement = document.getElementById(prize.elementId);
+            
+            console.log('Selected prize:', prize.name, '(Code:', currentPrizeKey + ')');
+            console.log('QR Element ID:', prize.elementId);
+            console.log('QR Element found:', qrElement);
+            
+            if (qrElement) {
+                qrElement.classList.remove('hidden');
+                console.log('QR code displayed for:', currentPrizeKey);
+            } else {
+                console.error('QR element not found:', prize.elementId);
+            }
             
             // Show QR screen
             showScreen('qrScreen');
@@ -750,17 +751,18 @@
             
             // Update debug info
             updateDebug();
-            
-            console.log(`Selected prize: ${prize.name} (Code: ${currentPrizeKey})`);
         }
 
         // Show winner screen
         function showWinnerScreen(prizeKey) {
-            const prize = prizes[prizeKey];
-            if (!prize) return;
+            var prize = prizes[prizeKey];
+            if (!prize) {
+                console.error('Prize not found for:', prizeKey);
+                return;
+            }
 
             document.getElementById('prizeIcon').textContent = prize.icon;
-            document.getElementById('prizeName').textContent = `You've Won a ${prize.name}!`;
+            document.getElementById('prizeName').textContent = "You've Won a " + prize.name + "!";
             document.getElementById('prizeDescription').textContent = prize.description;
 
             showScreen('winnerScreen');
@@ -769,55 +771,43 @@
 
         // Create confetti effect
         function createConfetti() {
-            const container = document.getElementById('confettiContainer');
+            var container = document.getElementById('confettiContainer');
             container.innerHTML = '';
 
-            const colors = ['#0A4D68', '#088395', '#05BFDB', '#00FFE7', '#FFD700', '#FF6B6B', '#FF69B4', '#00FF00'];
-            const shapes = ['square', 'circle'];
+            var colors = ['#0A4D68', '#088395', '#05BFDB', '#00FFE7', '#FFD700', '#FF6B6B', '#FF69B4', '#00FF00'];
+            var shapes = ['square', 'circle'];
 
-            for (let i = 0; i < 150; i++) {
-                const confetti = document.createElement('div');
+            for (var i = 0; i < 150; i++) {
+                var confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const shape = shapes[Math.floor(Math.random() * shapes.length)];
-                const left = Math.random() * 100;
-                const delay = Math.random() * 0.8;
-                const duration = 2.5 + Math.random() * 2;
-                const size = 8 + Math.random() * 12;
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                var shape = shapes[Math.floor(Math.random() * shapes.length)];
+                var left = Math.random() * 100;
+                var delay = Math.random() * 0.8;
+                var duration = 2.5 + Math.random() * 2;
+                var size = 8 + Math.random() * 12;
 
-                confetti.style.cssText = `
-                    left: ${left}%;
-                    top: -20px;
-                    width: ${size}px;
-                    height: ${size}px;
-                    background: ${color};
-                    border-radius: ${shape === 'circle' ? '50%' : '2px'};
-                    animation: confettiFall ${duration}s ease-out ${delay}s forwards;
-                `;
+                confetti.style.cssText = 'left:' + left + '%;top:-20px;width:' + size + 'px;height:' + size + 'px;background:' + color + ';border-radius:' + (shape === 'circle' ? '50%' : '2px') + ';animation:confettiFall ' + duration + 's ease-out ' + delay + 's forwards;';
 
                 container.appendChild(confetti);
             }
         }
 
-        // Handle scanner input (USB scanners act like keyboards)
+        // Handle scanner input
         function handleScannerInput(e) {
-            // Clear timeout if exists
             if (scanTimeout) {
                 clearTimeout(scanTimeout);
             }
 
-            // Add character to buffer
             if (e.key === 'Enter') {
-                // Scanner finished - process the buffer
                 processScan(scanBuffer);
                 scanBuffer = '';
             } else if (e.key.length === 1) {
                 scanBuffer += e.key;
             }
 
-            // Reset buffer after 100ms of no input (scanner types fast)
-            scanTimeout = setTimeout(() => {
+            scanTimeout = setTimeout(function() {
                 if (scanBuffer.length > 0) {
                     processScan(scanBuffer);
                     scanBuffer = '';
@@ -828,18 +818,22 @@
         // Process scanned data
         function processScan(scannedData) {
             console.log('Scanned:', scannedData);
+            console.log('Available prizes:', Object.keys(prizes));
             
-            // Check if scanned data matches a valid prize
             if (prizes[scannedData]) {
+                console.log('Prize found:', prizes[scannedData].name);
                 showWinnerScreen(scannedData);
             } else {
                 console.log('Invalid scan data:', scannedData);
             }
         }
 
-        // Simulate a scan (for testing without scanner)
+        // Simulate a scan (for testing)
         function simulateScan(prizeCode) {
-            if (document.getElementById('qrScreen').classList.contains('active')) {
+            console.log('simulateScan called with:', prizeCode);
+            var qrScreen = document.getElementById('qrScreen');
+            
+            if (qrScreen.classList.contains('active')) {
                 processScan(prizeCode);
             } else {
                 alert('Please click "Am I Lucky?" first to show a QR code');
@@ -853,7 +847,7 @@
 
         // Update debug info
         function updateDebug() {
-            const debugEl = document.getElementById('currentPrizeDebug');
+            var debugEl = document.getElementById('currentPrizeDebug');
             if (currentPrizeKey) {
                 debugEl.textContent = currentPrizeKey;
             } else {
@@ -861,12 +855,13 @@
             }
         }
 
-        // Keep focus on scanner input when on QR screen
+        // Keep focus on scanner input
         document.addEventListener('click', function(e) {
-            // Don't steal focus if clicking on test buttons
             if (e.target.classList.contains('test-btn') || 
                 e.target.classList.contains('test-toggle') ||
-                e.target.classList.contains('back-btn')) {
+                e.target.classList.contains('back-btn') ||
+                e.target.classList.contains('lucky-btn') ||
+                e.target.classList.contains('next-btn')) {
                 return;
             }
             
@@ -875,7 +870,7 @@
             }
         });
 
-        // Listen for keyboard input (scanner input)
+        // Listen for keyboard input
         document.addEventListener('keydown', function(e) {
             if (document.getElementById('qrScreen').classList.contains('active')) {
                 handleScannerInput(e);
