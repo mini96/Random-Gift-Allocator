@@ -7,17 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0A4D68;
-            --primary-light: #088395;
-            --accent: #05BFDB;
-            --accent-glow: #00FFE7;
-            --surface: #F8FCFD;
-            --surface-dark: #E8F4F6;
-            --text-dark: #0A2E3C;
-            --text-muted: #5A7A85;
+            --primary: #9B5FC4;
+            --primary-light: #B87FD8;
+            --accent: #E88AB8;
+            --accent-glow: #F5A8CC;
+            --secondary: #7B8FE8;
+            --bg-dark: #0D0B14;
+            --bg-card: #1A1625;
+            --bg-card-hover: #231D30;
+            --surface: #252033;
+            --surface-dark: #1E1929;
+            --text-light: #F8F6FB;
+            --text-muted: #9A8FAA;
             --white: #FFFFFF;
-            --gradient-primary: linear-gradient(135deg, #0A4D68 0%, #088395 50%, #05BFDB 100%);
-            --gradient-glow: linear-gradient(135deg, #05BFDB 0%, #00FFE7 100%);
+            --gradient-primary: linear-gradient(135deg, #E88AB8 0%, #B87FD8 50%, #7B8FE8 100%);
+            --gradient-glow: linear-gradient(135deg, #F5A8CC 0%, #C99AE8 50%, #9AADE8 100%);
         }
 
         * {
@@ -28,7 +32,7 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            background: var(--surface);
+            background: var(--bg-dark);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
@@ -48,15 +52,15 @@
         .bg-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
+            filter: blur(120px);
+            opacity: 0.25;
             animation: float 20s ease-in-out infinite;
         }
 
         .bg-orb-1 {
             width: 600px;
             height: 600px;
-            background: var(--primary);
+            background: #E88AB8;
             top: -200px;
             right: -100px;
             animation-delay: 0s;
@@ -65,7 +69,7 @@
         .bg-orb-2 {
             width: 500px;
             height: 500px;
-            background: var(--accent);
+            background: #7B8FE8;
             bottom: -150px;
             left: -100px;
             animation-delay: -7s;
@@ -74,7 +78,7 @@
         .bg-orb-3 {
             width: 400px;
             height: 400px;
-            background: var(--primary-light);
+            background: #9B5FC4;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -98,7 +102,7 @@
             align-items: center;
             justify-content: center;
             padding: 40px;
-            padding-bottom: 100px; /* Extra padding for footer */
+            padding-bottom: 100px;
         }
 
         /* Header */
@@ -107,16 +111,12 @@
             margin-bottom: 40px;
         }
 
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 4rem;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -2px;
-            margin-bottom: 8px;
+        .logo-image {
+            max-width: 380px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 30px rgba(184, 127, 216, 0.3));
         }
 
         .tagline {
@@ -141,13 +141,14 @@
 
         /* START SCREEN */
         .start-card {
-            background: var(--white);
+            background: var(--bg-card);
             border-radius: 40px;
             padding: 60px 50px;
             box-shadow: 
-                0 4px 6px rgba(10, 77, 104, 0.05),
-                0 20px 50px rgba(10, 77, 104, 0.1),
-                0 0 0 1px rgba(5, 191, 219, 0.1);
+                0 4px 6px rgba(0, 0, 0, 0.3),
+                0 20px 50px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(155, 95, 196, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -159,7 +160,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 6px;
+            height: 4px;
             background: var(--gradient-glow);
         }
 
@@ -167,7 +168,7 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text-light);
             margin-bottom: 15px;
         }
 
@@ -183,38 +184,41 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--white);
-            background: var(--gradient-primary);
+            color: var(--bg-dark);
+            background: var(--gradient-glow);
             border: none;
             border-radius: 60px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 15px 40px rgba(5, 191, 219, 0.4);
+            box-shadow: 
+                0 15px 40px rgba(232, 138, 184, 0.35),
+                0 0 60px rgba(184, 127, 216, 0.2);
             text-transform: uppercase;
             letter-spacing: 2px;
             animation: pulseBtn 2s ease-in-out infinite;
         }
 
         @keyframes pulseBtn {
-            0%, 100% { transform: scale(1); box-shadow: 0 15px 40px rgba(5, 191, 219, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 20px 50px rgba(5, 191, 219, 0.6); }
+            0%, 100% { transform: scale(1); box-shadow: 0 15px 40px rgba(232, 138, 184, 0.35), 0 0 60px rgba(184, 127, 216, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 20px 50px rgba(232, 138, 184, 0.5), 0 0 80px rgba(184, 127, 216, 0.3); }
         }
 
         .lucky-btn:hover {
             transform: scale(1.08);
-            box-shadow: 0 20px 50px rgba(5, 191, 219, 0.6);
+            box-shadow: 0 20px 50px rgba(232, 138, 184, 0.5), 0 0 80px rgba(184, 127, 216, 0.3);
             animation: none;
         }
 
         /* QR SCREEN */
         .qr-card {
-            background: var(--white);
+            background: var(--bg-card);
             border-radius: 40px;
             padding: 50px;
             box-shadow: 
-                0 4px 6px rgba(10, 77, 104, 0.05),
-                0 20px 50px rgba(10, 77, 104, 0.1),
-                0 0 0 1px rgba(5, 191, 219, 0.1);
+                0 4px 6px rgba(0, 0, 0, 0.3),
+                0 20px 50px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(155, 95, 196, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -232,7 +236,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 6px;
+            height: 4px;
             background: var(--gradient-glow);
         }
 
@@ -240,7 +244,7 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2rem;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text-light);
             margin-bottom: 8px;
         }
 
@@ -255,7 +259,7 @@
             position: relative;
             display: inline-block;
             padding: 30px;
-            background: var(--surface);
+            background: var(--white);
             border-radius: 24px;
             margin-bottom: 30px;
             min-width: 340px;
@@ -269,16 +273,16 @@
             border-radius: 28px;
             background: var(--gradient-glow);
             z-index: -1;
-            opacity: 0.6;
+            opacity: 0.8;
             animation: glowPulse 2s ease-in-out infinite;
         }
 
         @keyframes glowPulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
+            0%, 100% { opacity: 0.6; box-shadow: 0 0 30px rgba(184, 127, 216, 0.3); }
+            50% { opacity: 1; box-shadow: 0 0 50px rgba(184, 127, 216, 0.5); }
         }
 
-        /* QR Image Styles - CRITICAL FIX */
+        /* QR Image Styles */
         .qr-image {
             width: 280px;
             height: 280px;
@@ -296,7 +300,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            color: var(--primary-light);
+            color: var(--accent);
             font-weight: 600;
             font-size: 1.1rem;
         }
@@ -307,6 +311,7 @@
             background: var(--accent);
             border-radius: 50%;
             animation: pulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(232, 138, 184, 0.6);
         }
 
         @keyframes pulse {
@@ -322,7 +327,7 @@
             font-weight: 500;
             color: var(--text-muted);
             background: transparent;
-            border: 2px solid var(--surface-dark);
+            border: 2px solid var(--surface);
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -330,18 +335,20 @@
 
         .back-btn:hover {
             border-color: var(--accent);
-            color: var(--primary);
+            color: var(--accent);
         }
 
         /* WINNER SCREEN */
         .winner-card {
-            background: var(--white);
+            background: var(--bg-card);
             border-radius: 40px;
             padding: 60px 80px;
             box-shadow: 
-                0 4px 6px rgba(10, 77, 104, 0.05),
-                0 30px 60px rgba(10, 77, 104, 0.15),
-                0 0 0 1px rgba(5, 191, 219, 0.1);
+                0 4px 6px rgba(0, 0, 0, 0.3),
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(155, 95, 196, 0.15),
+                0 0 100px rgba(184, 127, 216, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -359,7 +366,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 8px;
+            height: 6px;
             background: var(--gradient-glow);
         }
 
@@ -374,6 +381,7 @@
             justify-content: center;
             font-size: 70px;
             animation: iconBounce 0.8s ease 0.3s;
+            box-shadow: 0 0 60px rgba(184, 127, 216, 0.4);
         }
 
         @keyframes iconBounce {
@@ -387,7 +395,7 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
-            background: var(--gradient-primary);
+            background: var(--gradient-glow);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -400,7 +408,7 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 3rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text-light);
             margin-bottom: 20px;
             line-height: 1.2;
         }
@@ -416,18 +424,18 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--white);
-            background: var(--gradient-primary);
+            color: var(--bg-dark);
+            background: var(--gradient-glow);
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(5, 191, 219, 0.3);
+            box-shadow: 0 10px 30px rgba(232, 138, 184, 0.3);
         }
 
         .next-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(5, 191, 219, 0.4);
+            box-shadow: 0 15px 40px rgba(232, 138, 184, 0.4), 0 0 60px rgba(184, 127, 216, 0.2);
         }
 
         /* Confetti */
@@ -454,7 +462,7 @@
             100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
         }
 
-        /* Footer - FIXED PADDING */
+        /* Footer */
         .footer {
             position: fixed;
             bottom: 0;
@@ -465,11 +473,14 @@
             font-size: 0.9rem;
             z-index: 1;
             padding: 20px 40px;
-            background: linear-gradient(to top, var(--surface) 0%, transparent 100%);
+            background: linear-gradient(to top, var(--bg-dark) 0%, transparent 100%);
         }
 
         .footer span {
-            color: var(--primary-light);
+            background: var(--gradient-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: 600;
         }
 
@@ -485,10 +496,10 @@
             position: fixed;
             bottom: 80px;
             right: 20px;
-            background: var(--white);
+            background: var(--bg-card);
             border-radius: 16px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(10, 77, 104, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(155, 95, 196, 0.15);
             z-index: 100;
             display: none;
         }
@@ -499,7 +510,7 @@
 
         .test-panel h4 {
             font-family: 'Space Grotesk', sans-serif;
-            color: var(--text-dark);
+            color: var(--text-light);
             margin-bottom: 12px;
             font-size: 0.9rem;
         }
@@ -511,8 +522,8 @@
             margin-bottom: 8px;
             font-family: 'Outfit', sans-serif;
             font-size: 0.85rem;
-            color: var(--white);
-            background: var(--primary);
+            color: var(--bg-dark);
+            background: var(--gradient-glow);
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -520,7 +531,8 @@
         }
 
         .test-btn:hover {
-            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(232, 138, 184, 0.3);
         }
 
         .test-btn:last-child {
@@ -535,8 +547,8 @@
             font-family: 'Outfit', sans-serif;
             font-size: 0.8rem;
             color: var(--text-muted);
-            background: var(--white);
-            border: 1px solid var(--surface-dark);
+            background: var(--bg-card);
+            border: 1px solid var(--surface);
             border-radius: 20px;
             cursor: pointer;
             z-index: 100;
@@ -545,24 +557,24 @@
 
         .test-toggle:hover {
             border-color: var(--accent);
-            color: var(--primary);
+            color: var(--accent);
         }
 
         .current-prize-debug {
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px solid var(--surface-dark);
+            border-top: 1px solid var(--surface);
             font-size: 0.75rem;
             color: var(--text-muted);
         }
 
         .current-prize-debug strong {
-            color: var(--primary);
+            color: var(--accent);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .logo { font-size: 2.8rem; }
+            .logo-image { max-width: 280px; }
             .start-card, .qr-card, .winner-card { padding: 40px 30px; }
             .qr-image { width: 220px; height: 220px; }
             .qr-container { min-width: 280px; min-height: 280px; }
@@ -588,7 +600,7 @@
     <!-- Main Container -->
     <div class="container">
         <header class="header">
-            <h1 class="logo">Lumicare</h1>
+            <img src="logo.png" alt="Lumicare" class="logo-image">
             <p class="tagline">Technology that lights a new tomorrow</p>
         </header>
 
@@ -774,7 +786,7 @@
             var container = document.getElementById('confettiContainer');
             container.innerHTML = '';
 
-            var colors = ['#0A4D68', '#088395', '#05BFDB', '#00FFE7', '#FFD700', '#FF6B6B', '#FF69B4', '#00FF00'];
+            var colors = ['#E88AB8', '#B87FD8', '#7B8FE8', '#F5A8CC', '#C99AE8', '#9AADE8', '#FFD700', '#FF6B9D'];
             var shapes = ['square', 'circle'];
 
             for (var i = 0; i < 150; i++) {
